@@ -4,3 +4,4 @@
 # This is a default directory for macOS user accounts but doesn't comes pre-installed
 mkdir -p $HOME/Workspace
 mkdir -p $HOME/Workspace/labs
+mkdir -p $HOME/Projects

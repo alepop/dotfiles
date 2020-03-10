@@ -22,15 +22,16 @@ brew bundle
 
 # z hopping around folders
 brew install z
-
-brew install antigen
+# fish shell
+brew install fish
 brew install git
 brew install tree
-brew install node
 brew install yarn
-brew install mas
 brew install neovim
 brew install stow
+brew install the_silver_searcher
+brew install fzf
+brew install starship
 
 # Remove outdated versions from the cellar
 brew cleanup

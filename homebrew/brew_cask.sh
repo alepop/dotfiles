@@ -8,20 +8,17 @@
 # productivity
 brew cask install 1password
 brew cask install google-chrome
-brew cask install spotify
-brew cask install alfred
 
 # dev
-brew cask install iterm2
+brew cask install kitty
 brew cask install visual-studio-code
-brew cask install insomnia
-brew cask install imageoptim
 
 # design
 brew cask install figma
 
 # communication
 brew cask install slack
+brew cask install discord
 
 # fonts
 brew tap homebrew/cask-fonts

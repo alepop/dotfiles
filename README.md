@@ -1,14 +1,6 @@
-# ⚙️ Helder's Dotfiles
+# ⚙️ Alepop's Dotfiles
 
 My base settings for when I start in a new environment.
-
-## Requirements
-
-Set zsh as your default shell:
-
-```bash
-sudo chsh -s $(which zsh)
-```
 
 ## Setting up your Mac
 
@@ -21,7 +13,7 @@ sudo chsh -s $(which zsh)
 - Clone onto your machine:
 
 ```bash
-git clone git://github.com/helderburato/dotfiles.git ~/.dotfiles
+git clone git://github.com/alepop/dotfiles.git ~/.dotfiles
 ```
 
 - Install the dotfiles:
@@ -33,8 +25,6 @@ sh ~/.dotfiles/install.sh
 Restart your computer and enjoy your new configuration.! ✌🏻
 
 ## Troubleshoot
-
-- If you get any problems with `antigen`, try `rm -rf ~/.antigen` after complete, close your terminal and open again to reinstall the packages from antigen.
 
 ## Inspiration
 

@@ -1,4 +1,4 @@
-#!/bin/zsh
+#!/bin/bash
 
 ###########################
 # This script installs the dotfiles and runs macOS configurations
@@ -37,14 +37,9 @@ if test ! $(which brew); then
   /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 fi
 
-if test ! $(which zsh); then
-	curl https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh | zsh
-fi
-
 echo "📲 Installing homebrew/app store packages..."
 sh ./homebrew/brew.sh
 sh ./homebrew/brew_cask.sh
-sh ./mac/app_store.sh
 echo "✅ Successful installed packages"
 
 echo "📁 Creating workspaces directories..."
@@ -55,10 +50,15 @@ echo "🔗 Linking configuration files..."
 sh ./mac/tasks/symlink.sh
 echo "✅ Successful linked configuration files"
 
-# Install configurations from zsh
-echo "🔧 Setting configuration to iTerm2 and zsh..."
-source $HOME/.zshrc
-echo "✅ Successful configured iTerm2 and zsh"
+echo "📲 Installing minpac for nvim..."
+git clone https://github.com/k-takata/minpac.git \
+    ~/.config/nvim/pack/minpac/opt/minpac
+echo "✅ Minpac successful installed "
+
+echo "🖥 Setting fish as default shell.."
+echo /usr/local/bin/fish | sudo tee -a /etc/shells
+chsh -s /usr/local/bin/fish
+echo "✅ Successfuly set fish as default shell"
 
 # Add default apps to Dock
 echo "🖥 Setting apps to Mac dock..."

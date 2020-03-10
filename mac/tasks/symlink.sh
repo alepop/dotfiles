@@ -3,9 +3,11 @@
 DOTFILE_DIR=$HOME/.dotfiles
 
 DOTFILES=(
-	"zsh"
-	"bash"
 	"git"
+  "nvim"
+  "fish"
+  "kitty"
+  "starship"
 )
 
 for dotfile in "${DOTFILES[@]}";do
