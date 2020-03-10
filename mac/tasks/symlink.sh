@@ -3,7 +3,7 @@
 DOTFILE_DIR=$HOME/.dotfiles
 
 DOTFILES=(
-	"git"
+  "git"
   "nvim"
   "fish"
   "kitty"
