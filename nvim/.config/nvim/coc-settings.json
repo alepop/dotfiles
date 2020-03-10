@@ -1,0 +1,10 @@
+{
+  "npm.binPath": "npm",
+  "coc.preferences.colorSupport": true,
+  "git.enableGutters": true,
+  "git.addGBlameToVirtualText": true,
+  "git.addGBlameToBufferVar": true,
+  "codeLens.enable": false,
+  "pairs.enableBackspace": false,
+  "smartf.jumpOnTrigger": false
+}
