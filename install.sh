@@ -39,7 +39,6 @@ fi
 
 echo "📲 Installing homebrew/app store packages..."
 sh ./homebrew/brew.sh
-sh ./homebrew/brew_cask.sh
 echo "✅ Successful installed packages"
 
 echo "📁 Creating workspaces directories..."

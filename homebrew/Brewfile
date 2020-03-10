@@ -1,0 +1,81 @@
+tap "homebrew/bundle"
+tap "homebrew/cask"
+tap "homebrew/cask-fonts"
+tap "homebrew/core"
+tap "homebrew/services"
+tap "lautis/refined-github-safari"
+tap "neovim/neovim"
+
+
+brew "bat"
+brew "blueutil"
+brew "cocoapods"
+brew "colordiff"
+brew "gnu-sed"
+brew "libtool"
+brew "crosstool-ng"
+brew "editorconfig"
+brew "emojify"
+brew "exa"
+brew "fish"
+brew "fzf"
+brew "git"
+brew "pinentry"
+brew "gnupg"
+brew "gradle"
+brew "ios-deploy"
+brew "neovim"
+brew "nginx", restart_service: true
+brew "ripgrep"
+brew "starship"
+brew "stow"
+brew "the_silver_searcher"
+brew "tree"
+brew "trezor-agent"
+brew "vim"
+brew "wget"
+brew "wxmac"
+brew "yarn"
+brew "z"
+brew "coreutils"
+brew "moreutils"
+brew "findutils"
+
+
+cask "android-platform-tools"
+cask "android-sdk"
+cask "android-studio"
+cask "cryptomator"
+cask "dropbox"
+cask "font-hack-nerd-font"
+cask "kitty"
+cask "macvim"
+cask "now"
+cask "qlcolorcode"
+cask "qlmarkdown"
+cask "qlstephen"
+cask "refined-github-safari"
+cask "spectacle"
+cask "1password"
+cask "firefox"
+cask "google-chrome"
+cask "the-unarchiver"
+cask "transmission"
+cask "docker"
+cask "pg-commander"
+cask "figma"
+cask "slack"
+cask "discord"
+cask "telegram"
+
+mas "Adblock Plus", id: 1432731683
+mas "Dash", id: 458034879
+mas "Keynote", id: 409183694
+mas "NextDNS", id: 1464122853
+mas "Numbers", id: 409203825
+mas "Pages", id: 409201541
+mas "Slack", id: 803453959
+mas "The Unarchiver", id: 425424353
+mas "Tweetbot", id: 557168941
+mas "Vimari", id: 1480933944
+mas "Xcode", id: 497799835
