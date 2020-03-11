@@ -4,6 +4,7 @@ alias copr="git fetch origin pull/$argv/head:pr$argv;" #checkout to the pull req
 alias gpg="gpg2"
 alias vimdiff="nvim -d"
 alias vim="nvim"
+alias ls="exa -la"
 
 # Docker
 function docker-clean --description 'Remove docker container with "exited" status'

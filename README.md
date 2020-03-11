@@ -1,4 +1,4 @@
-# ⚙️ Alepop's Dotfiles
+# ⚙️ alepop's Dotfiles
 
 My base settings for when I start in a new environment.
 

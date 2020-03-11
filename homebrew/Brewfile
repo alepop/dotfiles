@@ -49,8 +49,8 @@ cask "android-studio"
 cask "cryptomator"
 cask "dropbox"
 cask "font-hack-nerd-font"
+cask "font-jetbrains-mono"
 cask "kitty"
-cask "macvim"
 cask "now"
 cask "qlcolorcode"
 cask "qlmarkdown"
@@ -67,7 +67,10 @@ cask "pg-commander"
 cask "figma"
 cask "slack"
 cask "discord"
-cask "telegram"
+cask "telegram-desktop"
+cask "daisydisk"
+cask "little-snitch"
+cask "tunnelblick"
 
 mas "Adblock Plus", id: 1432731683
 mas "Dash", id: 458034879
@@ -75,8 +78,6 @@ mas "Keynote", id: 409183694
 mas "NextDNS", id: 1464122853
 mas "Numbers", id: 409203825
 mas "Pages", id: 409201541
-mas "Slack", id: 803453959
-mas "The Unarchiver", id: 425424353
 mas "Tweetbot", id: 557168941
 mas "Vimari", id: 1480933944
 mas "Xcode", id: 497799835
