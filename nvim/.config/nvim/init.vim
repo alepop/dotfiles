@@ -1,44 +1,9 @@
-""" Coloring
-syntax on
-set t_Co=256
-colorscheme one
-let g:one_allow_italics = 1
-set background=light
-let &t_ut=''
-" Opaque Background (Comment out to use terminal's profile)
-set termguicolors
-
-""" Other Configurations
-filetype plugin indent on
-set tabstop=2 softtabstop=2 shiftwidth=2 expandtab smarttab autoindent
-set incsearch ignorecase smartcase hlsearch
-set ruler laststatus=2 showcmd showmode
-set list listchars=trail:»,tab:»-
-set fillchars+=vert:\
-set wrap breakindent
-set encoding=utf-8
-set number
-set title
-
-
-""" COC recomendet settings
-" if hidden is not set, TextEdit might fail.
-set hidden
-" Some servers have issues with backup files, see #649
-set nobackup
-set nowritebackup
-" You will have bad experience for diagnostic messages when it's default 4000.
-set updatetime=300
-" don't give |ins-completion-menu| messages.
-set shortmess+=c
-" always show signcolumns
-set signcolumn=yes
-
+let g:vim_better_default_key_mapping = 0
+let g:vim_better_default_persistent_undo = 1
 
 """ Key bindings
 let g:mapleader = "\<Space>"
 let g:maplocalleader = ','
-
 
 """ Minpac
 if exists('*minpac#init')
@@ -48,6 +13,8 @@ if exists('*minpac#init')
   call minpac#add('k-takata/minpac', {'type': 'opt'})
 
   " Add other plugins here.
+  " vim-better-defaults
+  call minpac#add('liuchengxu/vim-better-default')
   " one color theme
   call minpac#add('rakr/vim-one')
   call minpac#add('NLKNguyen/papercolor-theme')
@@ -92,6 +59,10 @@ command! PackUpdate packadd minpac | source $MYVIMRC | call minpac#update('', {'
 command! PackClean  packadd minpac | source $MYVIMRC | call minpac#clean()
 command! PackStatus packadd minpac | source $MYVIMRC | call minpac#status()
 
+""" Base
+colorscheme one
+set background=light
+let g:one_allow_italics = 1
 
 """ Plugin config
 
