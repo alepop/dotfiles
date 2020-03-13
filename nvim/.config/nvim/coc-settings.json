@@ -1,10 +1,11 @@
 {
-  "npm.binPath": "npm",
-  "coc.preferences.colorSupport": true,
-  "git.enableGutters": true,
-  "git.addGBlameToVirtualText": true,
-  "git.addGBlameToBufferVar": true,
-  "codeLens.enable": false,
-  "pairs.enableBackspace": false,
-  "smartf.jumpOnTrigger": false
+    "npm.binPath": "npm",
+    "coc.preferences.colorSupport": true,
+    "git.enableGutters": true,
+    "git.addGBlameToVirtualText": true,
+    "git.addGBlameToBufferVar": true,
+    "pairs.enableBackspace": false,
+    "coc.source.around.enable": false,
+    "coc.source.buffer.enable": false,
+    "diagnostic.displayByAle": true
 }
