@@ -73,41 +73,51 @@ if exists('*minpac#init')
     " Surrond
     call minpac#add('tpope/vim-surround')
 
+    " Git
+    call minpac#add('tpope/vim-fugitive')
+
     " color
     call minpac#add('rakr/vim-one')
     call minpac#add('cormacrelf/vim-colors-github')
 endif
 
 " load packages
+" Matchit {{{
+if !has('nvim')
+    " Start matchit
+    packadd! matchit
+endif
+" Use Tab instead of % to switch
+nmap <Tab> %
+vmap <Tab> %
+" }}}
 packloadall
-
 " Minpac config {{{
-
 " Define user commands for updating/cleaning the plugins.
 " Each of them calls PackInit() to load minpac and register
 " the information of plugins, then performs the task.
 command! PackUpdate packadd minpac | source $MYVIMRC | call minpac#update('', {'do': 'call minpac#status()'})
 command! PackClean  packadd minpac | source $MYVIMRC | call minpac#clean()
 command! PackStatus packadd minpac | source $MYVIMRC | call minpac#status()
-
 " }}}
 " }}}
 " Base {{{
 " Settings {{{
-" Use "hybrid" (both absolute and relative) line numbers
-set number relativenumber
-" Use the system clipboard
-set clipboard=unnamed
-" Use a color column on the 80-character mark
-set colorcolumn=80
-" Press <tab>, get two spaces
-set expandtab shiftwidth=2
-" Show `▸▸` for tabs: 	, `·` for tailing whitespace:
-set list listchars=tab:▸▸,trail:·
+set number relativenumber " Use "hybrid" (both absolute and relative) line numbers
+set hidden " Possibility to have more than one unsaved buffers.
+set ignorecase " Search insensitive
+set smartcase
+set incsearch " Incremental search.
+set hlsearch " Highlight search results
+set clipboard=unnamed " Use the system clipboard
+set colorcolumn=80 " Use a color column on the 80-character mark
+set expandtab shiftwidth=2 " Press <tab>, get two spaces
+set list listchars=tab:▸▸,trail:· " Show `▸▸` for tabs: 	, `·` for tailing whitespace:
 " }}}
 " Fold settings {{{
-set nofoldenable                                   " don't automatically close all folds initially
 set foldmethod=syntax                              " how to determine folds
+set foldlevelstart=0 " Start with all folds closed
+" set foldcolumn=1 " Set fold column
 au BufRead *.vim,.*vimrc setlocal foldenable foldmethod=marker foldlevel=0
 " }}}
 " Key bindings {{{
@@ -167,8 +177,7 @@ nnoremap <silent> <leader>      :<c-u>WhichKey '<Space>'<CR>
 nnoremap <silent> <localleader> :<c-u>WhichKey  ','<CR>
 call which_key#register('<Space>', "g:which_key_map")
 
-" Define prefix dictionary
-let g:which_key_map =  {}
+let g:which_key_map =  {} " Define prefix dictionary
 " }}}
 " 'F' key (Files) {{{
 let g:which_key_map.f = {
@@ -260,6 +269,7 @@ let g:coc_explorer_global_presets = {
             \     'file.child.template': '[selection | clip | 1] [indent][icon | 1] [filename omitCenter 1]'
             \   }
             \ }
+
 nmap <space>ef :CocCommand explorer --preset floating<CR>
 
 let g:which_key_map.e.f = 'explore-files'
@@ -325,16 +335,13 @@ nmap <silent> ]d <Plug>(coc-diagnostic-next)
 let g:ale_lint_on_text_changed = 'always'
 let g:ale_lint_delay = 300
 let g:ale_fix_on_save = 1
-
-
-" " fixer configurations
+" Linters {{{
 let g:ale_fixers = {
             \   '*': ['remove_trailing_lines', 'trim_whitespace'],
             \   'javascript': ['eslint'],
             \   'typescript': ['tslint'],
             \ }
-
-
+" }}}
 " }}}
 " Pretier {{{
 command! -nargs=0 Prettier :CocCommand prettier.formatFile
