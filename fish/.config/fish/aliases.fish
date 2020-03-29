@@ -10,3 +10,11 @@ alias ls="exa -la"
 function docker-clean --description 'Remove docker container with "exited" status'
   docker rm (docker ps -a -q -f status=exited)
 end
+
+function docker-stop --description 'Stop all containers'
+  docker stop (docker ps -a -q)
+end
+
+function docker-remove --description 'Remove all docker containers'
+  docker rm (docker ps -a -q)
+end
