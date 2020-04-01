@@ -79,6 +79,9 @@ if exists('*minpac#init')
     " color
     call minpac#add('rakr/vim-one')
     call minpac#add('cormacrelf/vim-colors-github')
+
+    " Dash
+    call minpac#add('rizzatti/dash.vim')
 endif
 
 " load packages
@@ -116,8 +119,9 @@ set list listchars=tab:▸▸,trail:· " Show `▸▸` for tabs: 	, `·` for tai
 " }}}
 " Fold settings {{{
 set foldmethod=syntax                              " how to determine folds
-set foldlevelstart=0 " Start with all folds closed
+set foldlevelstart=1 " Start with all folds closed
 " set foldcolumn=1 " Set fold column
+set nofoldenable
 au BufRead *.vim,.*vimrc setlocal foldenable foldmethod=marker foldlevel=0
 " }}}
 " Key bindings {{{
@@ -176,8 +180,10 @@ let g:which_key_use_floating_win = 1
 nnoremap <silent> <leader>      :<c-u>WhichKey '<Space>'<CR>
 nnoremap <silent> <localleader> :<c-u>WhichKey  ','<CR>
 call which_key#register('<Space>', "g:which_key_map")
+call which_key#register(',', "g:which_local_key_map")
 
 let g:which_key_map =  {} " Define prefix dictionary
+let g:which_local_key_map = {}
 " }}}
 " 'F' key (Files) {{{
 let g:which_key_map.f = {
@@ -347,9 +353,14 @@ let g:ale_fixers = {
 command! -nargs=0 Prettier :CocCommand prettier.formatFile
 vmap <localleader>f  <Plug>(coc-format-selected)
 nmap <localleader>f  <Plug>(coc-format-selected)
+let g:which_local_key_map.f = 'format-selected'
 " }}}
 " Git {{{
 " navigate chunks of current buffer
 nmap [g <Plug>(coc-git-prevchunk)
 nmap ]g <Plug>(coc-git-nextchunk)
+" }}}
+" Dash {{{
+:nmap <silent><localleader>d <Plug>DashSearch
+let g:which_local_key_map.d = 'search-in-dash-docsets'
 " }}}
