@@ -39,20 +39,15 @@ brew "tldr"
 brew "coreutils"
 brew "moreutils"
 brew "findutils"
-
+brew "mas"
+brew "mono"
 
 cask "android-platform-tools"
 cask "cryptomator"
 cask "dropbox"
 cask "font-hack-nerd-font"
 cask "font-jetbrains-mono"
-cask "kitty"
-cask "now"
-cask "qlcolorcode"
-cask "qlmarkdown"
-cask "qlstephen"
 cask "refined-github-safari"
-cask "spectacle"
 cask "1password"
 cask "firefox"
 cask "google-chrome"
@@ -68,13 +63,18 @@ cask "daisydisk"
 cask "little-snitch"
 cask "micro-snitch"
 cask "tunnelblick"
+cask "hammerspoon"
+cask "virtualbox"
+cask "rectangle"
+cask "smcfancontrol"
+cask "alacrity"
 
 mas "Adblock Plus", id: 1432731683
 mas "Dash", id: 458034879
 mas "Keynote", id: 409183694
-mas "NextDNS", id: 1464122853
 mas "Numbers", id: 409203825
 mas "Pages", id: 409201541
 mas "Tweetbot", id: 557168941
 mas "Vimari", id: 1480933944
 mas "Xcode", id: 497799835
+mas "Todoist", id: 585829637
