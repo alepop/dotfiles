@@ -25,7 +25,7 @@ set -gx GPG_TTY (tty)
 set -gx SSH_AUTH_SOCK (gpgconf --list-dirs agent-ssh-socket)
 set -gx ANDROID_SDK_ROOT /usr/local/share/android-sdk
 set -gx FZF_CTRL_T_COMMAND "$FZF_DEFAULT_COMMAND"
-set -gx BAT_THEME "GitHub"
+set -gx BAT_THEME "Monokai Extended"
 
 set -g theme_hostname always
 
