@@ -6,8 +6,8 @@ DOTFILES=(
   "git"
   "nvim"
   "fish"
-  "kitty"
   "starship"
+  "alacritty"
 )
 
 for dotfile in "${DOTFILES[@]}";do
