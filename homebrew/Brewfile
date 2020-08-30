@@ -40,7 +40,6 @@ brew "coreutils"
 brew "moreutils"
 brew "findutils"
 brew "mas"
-brew "mono"
 
 cask "android-platform-tools"
 cask "cryptomator"
@@ -68,6 +67,7 @@ cask "virtualbox"
 cask "rectangle"
 cask "smcfancontrol"
 cask "alacrity"
+cask "flutter"
 
 mas "Adblock Plus", id: 1432731683
 mas "Dash", id: 458034879
