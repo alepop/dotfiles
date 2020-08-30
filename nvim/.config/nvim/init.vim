@@ -47,6 +47,7 @@ if exists('*minpac#init')
     call minpac#add('pechorin/any-jump.vim')
     " polyglot
     call minpac#add('sheerun/vim-polyglot')
+    call minpac#add('evanleck/vim-svelte')
     " Commentary
     call minpac#add('tpope/vim-commentary')
     " Surrond
@@ -55,6 +56,7 @@ if exists('*minpac#init')
     call minpac#add('tpope/vim-fugitive')
     " ColorSchemes
     call minpac#add('morhetz/gruvbox')
+    call minpac#add('dracula/vim', { 'name': 'dracula'})
     " Markdown preview
     call minpac#add('iamcco/markdown-preview.nvim', {'do': '!yarn install', 'type': 'opt'})
     " C# and Unity
@@ -112,7 +114,9 @@ set termguicolors
 set background=dark
 let g:gruvbox_contrast_dark='soft'
 let g:gruvbox_contrast_light='soft'
-colorscheme gruvbox
+let g:gruvbox_invert_selection='0'
+packadd! dracula
+colorscheme dracula
 
 hi! Normal ctermbg=NONE guibg=NONE
 hi! NonText ctermbg=NONE guibg=NONE guifg=NONE ctermfg=NONE
@@ -174,7 +178,7 @@ tnoremap jk <C-\><C-n>
 " }}}
 " Lightline {{{
 let g:lightline = {
-            \ 'colorscheme': 'gruvbox',
+            \ 'colorscheme': 'dracula',
             \ 'active': {
             \   'left': [
             \     [ 'mode', 'paste' ],
@@ -257,6 +261,9 @@ let g:which_key_map.g = {
             \ }
 nmap <silent><leader>gD :vsp<CR><Plug>(coc-definition)
 let g:which_key_map.g.D = 'go-to-defenition in vslpit'
+
+nnoremap <leader>gW :CocSearch <C-R>=expand("<cword>")<CR><CR>
+let g:which_key_map.g.W = 'search current word'
 " }}}
 
 " 'L' key (CocList's) {{{
@@ -332,7 +339,9 @@ command! -nargs=0 Format :call CocAction('format')
 command! -nargs=0 OR :call CocAction('runCommand', 'editor.action.organizeImport')
 
 " Remap keys for applying codeAction to the current line.
-nmap <leader>ac <Plug>(coc-codeaction)
+xmap <leader>a  <Plug>(coc-codeaction-selected)
+nmap <leader>a  <Plug>(coc-codeaction-selected)
+
 xmap <localleader>a :<C-u>execute 'CocCommand actions.open ' . visualmode()<CR>
 " Apply AutoFix to problem on the current line.
 nmap <leader>qf <Plug>(coc-fix-current)
@@ -351,6 +360,7 @@ let g:which_local_key_map.f = 'format-selected'
 " Use `[g` and `]g` to navigate git chunks
 nmap <silent> [g <Plug>(coc-git-prevchunk)
 nmap <silent> ]g <Plug>(coc-git-nextchunk)
+nnoremap <localleader>gm :diffget //3<CR>
 " }}}
 " Matchit {{{
 " Use Tab instead of % to switch
@@ -371,3 +381,4 @@ let g:OmniSharp_server_use_mono = 1
 let g:OmniSharp_typeLookupInPreview = 1
 set previewheight=5
 " }}}
+let g:svelte_preprocessors = ['typescript']
