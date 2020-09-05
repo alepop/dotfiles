@@ -59,8 +59,6 @@ if exists('*minpac#init')
     call minpac#add('dracula/vim', { 'name': 'dracula'})
     " Markdown preview
     call minpac#add('iamcco/markdown-preview.nvim', {'do': '!yarn install', 'type': 'opt'})
-    " C# and Unity
-    call minpac#add('OmniSharp/omnisharp-vim')
 endif
 
 " Minpac config {{{
@@ -129,7 +127,6 @@ autocmd ColorScheme * hi! GruvboxRedSign guibg=NONE
 " autocmd ColorScheme * hi! NonText ctermbg=NONE guibg=NONE guifg=NONE ctermfg=NONE
 
 autocmd BufWritePre *.js,*.jsx,*.ts,*.tsx,*.css,*.html :Format
-autocmd BufWritePre *.cs OmniSharpCodeFormat
 
 " Hide status line
 autocmd! FileType which_key
@@ -315,9 +312,7 @@ autocmd CursorHold * silent call CocActionAsync('highlight')
 nnoremap <silent> K :call <SID>show_documentation()<CR>
 
 function! s:show_documentation()
-    if (index(['cs'], &filetype) >= 0)
-      call OmniSharp#actions#documentation#TypeLookup()
-    elseif (index(['vim','help'], &filetype) >= 0)
+    if (index(['vim','help'], &filetype) >= 0)
         execute 'h '.expand('<cword>')
     else
         call CocAction('doHover')
@@ -372,13 +367,5 @@ au FileType markdown packadd markdown-preview.nvim
 " }}}
 " FZF {{{
 let g:fzf_layout = { 'window': {'width': 0.9, 'height': 0.6}}
-" }}}
-" {{{ Omnisharp
-let g:OmniSharp_server_stdio = 1
-let g:omnicomplete_fetch_full_documentation = 1
-let g:OmniSharp_highlight_types = 2
-let g:OmniSharp_server_use_mono = 1
-let g:OmniSharp_typeLookupInPreview = 1
-set previewheight=5
 " }}}
 let g:svelte_preprocessors = ['typescript']
