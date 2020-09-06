@@ -44,7 +44,7 @@ if exists('*minpac#init')
     endif
     " }}}
     " AnyJump
-    call minpac#add('pechorin/any-jump.vim')
+    " call minpac#add('pechorin/any-jump.vim')
     " polyglot
     call minpac#add('sheerun/vim-polyglot')
     call minpac#add('evanleck/vim-svelte')
@@ -119,13 +119,6 @@ colorscheme dracula
 hi! Normal ctermbg=NONE guibg=NONE
 hi! NonText ctermbg=NONE guibg=NONE guifg=NONE ctermfg=NONE
 " Autocmd {{{
-autocmd ColorScheme * hi! link SignColumn LineNr
-autocmd ColorScheme * hi! GruvboxAquaSign guibg=NONE
-autocmd ColorScheme * hi! GruvboxGreenSign guibg=NONE
-autocmd ColorScheme * hi! GruvboxRedSign guibg=NONE
-" autocmd ColorScheme * hi! Normal ctermbg=NONE guibg=NONE
-" autocmd ColorScheme * hi! NonText ctermbg=NONE guibg=NONE guifg=NONE ctermfg=NONE
-
 autocmd BufWritePre *.js,*.jsx,*.ts,*.tsx,*.css,*.html :Format
 
 " Hide status line
@@ -169,8 +162,8 @@ nnoremap <A-l>    :vertical resize +2<CR>
 " nnoremap <S-TAB> :bprevious<CR>
 
 " exit terminal mode
-tnoremap <Esc> <C-\><C-n>
-tnoremap jk <C-\><C-n>
+" tnoremap <Esc> <C-\><C-n>
+" tnoremap jk <C-\><C-n>
 " }}}
 " }}}
 " Lightline {{{
@@ -202,26 +195,23 @@ packadd vim-which-key
 set timeoutlen=200
 let g:which_key_use_floating_win = 1
 nnoremap <silent> <leader>      :<c-u>WhichKey '<Space>'<CR>
+vnoremap <silent> <leader>      :<c-u>WhichKeyVisual '<Space>'<CR>
 nnoremap <silent> <localleader> :<c-u>WhichKey  ','<CR>
 call which_key#register('<Space>', "g:which_key_map")
 call which_key#register(',', "g:which_local_key_map")
 
 let g:which_key_map =  {} " Define prefix dictionary
 let g:which_local_key_map = {}
-" }}}
+"
+" Coc Search & refactor
+nnoremap <leader>? :CocSearch <C-R>=expand("<cword>")<CR><CR>
+let g:which_key_map['?'] = 'search word'
 
-" 'F' key (Files) {{{
-let g:which_key_map.f = {
-            \ 'name': '+file',
-            \ 'f': [':CocList files', 'searh-files'],
-            \ 'g': {
-            \ 'name': '+git',
-            \   's': [':CocList --normal --tab -A gstatus', 'git-status'],
-            \ },
-            \ }
-
-nnoremap <silent><leader>fd :e $MYVIMRC<CR>
-let g:which_key_map.f.d = 'open-vimrc'
+let g:which_key_map['/'] = [ ':call Comment()', 'comment' ]
+let g:which_key_map['.'] = [ ':e $MYVIMRC', 'open init']
+let g:which_key_map[';'] = [ ':Commands', 'commands' ]
+let g:which_key_map['e'] = [ ':CocCommand explorer --quit-on-open --sources buffer-,file+', 'explorer']
+let g:which_key_map['a'] = 'actions'
 " }}}
 
 " 'W' key (Windows) {{{
@@ -231,7 +221,7 @@ let g:which_key_map.w = {
             \ '-' : ['<C-W>s'     , 'split-window-below']    ,
             \ '|' : ['<C-W>v'     , 'split-window-right']    ,
             \ '=' : ['<C-W>='     , 'balance-window']        ,
-            \ 'w' : [':CocList --normal windows', 'windows'],
+            \ 'w' : [':Windows', 'windows'],
             \ }
 
 " }}}
@@ -242,52 +232,73 @@ let g:which_key_map.b = {
             \ 'n': ['bnext', 'next-buffer'],
             \ 'p': ['bprevious', 'previous-buffer'],
             \ 'c': ['bunload', 'unload-buffer'],
-            \ 'b': ['coc#rpc#notify("openList",["buffers"])', 'buffers'],
+            \ 'd': ['bdelete', 'delete-buffer'],
+            \ 'b': ['Buffers', 'fzf-buffer'],
             \ }
 
 " }}}
 
-" 'G' key (Go-to) {{{
-let g:which_key_map.g = {
-            \ 'name': '+goto',
-            \ 'i': ['CocAction("jumpImplementation")', 'go-to-implementation'],
-            \ 'y': ['CocAction("jumpTypeDefinition")', 'go-to-type-defenition'],
-            \ 'r': ['CocAction("jumpReferences")', 'go-to-reference'],
-            \ 'w': [':Rg', 'find-word'],
-            \ 'd': ['<Plug>(coc-definition)', 'go-to-defenition'],
-            \ }
-nmap <silent><leader>gD :vsp<CR><Plug>(coc-definition)
-let g:which_key_map.g.D = 'go-to-defenition in vslpit'
-
-nnoremap <leader>gW :CocSearch <C-R>=expand("<cword>")<CR><CR>
-let g:which_key_map.g.W = 'search current word'
+" 'L' key (LSP) {{{
+let g:which_key_map.l = {
+      \ 'name' : '+lsp' ,
+      \ '.' : [':CocConfig'                          , 'config'],
+      \ ';' : ['<Plug>(coc-refactor)'                , 'refactor'],
+      \ 'a' : ['<Plug>(coc-codeaction)'              , 'line action'],
+      \ 'A' : ['<Plug>(coc-codeaction-selected)'     , 'selected action'],
+      \ 'b' : [':CocNext'                            , 'next action'],
+      \ 'B' : [':CocPrev'                            , 'prev action'],
+      \ 'c' : [':CocList commands'                   , 'commands'],
+      \ 'd' : ['<Plug>(coc-definition)'              , 'definition'],
+      \ 'D' : ['<Plug>(coc-declaration)'             , 'declaration'],
+      \ 'f' : ['<Plug>(coc-format-selected)'         , 'format selected'],
+      \ 'F' : ['<Plug>(coc-format)'                  , 'format'],
+      \ 'h' : ['<Plug>(coc-float-hide)'              , 'hide'],
+      \ 'i' : ['<Plug>(coc-implementation)'          , 'implementation'],
+      \ 'I' : [':CocList diagnostics'                , 'diagnostics'],
+      \ 'j' : ['<Plug>(coc-float-jump)'              , 'float jump'],
+      \ 'l' : ['<Plug>(coc-codelens-action)'         , 'code lens'],
+      \ 'n' : ['<Plug>(coc-diagnostic-next)'         , 'next diagnostic'],
+      \ 'N' : ['<Plug>(coc-diagnostic-next-error)'   , 'next error'],
+      \ 'o' : ['<Plug>(coc-openlink)'                , 'open link'],
+      \ 'O' : [':CocList -A --tab outline'                    , 'outline'],
+      \ 'p' : ['<Plug>(coc-diagnostic-prev)'         , 'prev diagnostic'],
+      \ 'P' : ['<Plug>(coc-diagnostic-prev-error)'   , 'prev error'],
+      \ 'q' : ['<Plug>(coc-fix-current)'             , 'quickfix'],
+      \ 'r' : ['<Plug>(coc-rename)'                  , 'rename'],
+      \ 'R' : ['<Plug>(coc-references)'              , 'references'],
+      \ 's' : [':CocList -I symbols'                 , 'references'],
+      \ 'S' : [':CocList snippets'                   , 'snippets'],
+      \ 't' : ['<Plug>(coc-type-definition)'         , 'type definition'],
+      \ 'u' : [':CocListResume'                      , 'resume list'],
+      \ 'U' : [':CocUpdate'                          , 'update CoC'],
+      \ }
 " }}}
-
-" 'L' key (CocList's) {{{
-let g:which_key_map.l = { 'name': '+list' }
-
-nnoremap <silent> <space>lo  :<C-u>CocList -A --tab outline<cr>
-let g:which_key_map.l.o = 'outline'
-"
-" Show all diagnostics
-nnoremap <silent> <space>ld  :<C-u>CocList --normal -A diagnostics<cr>
-let g:which_key_map.l.d = 'diagnostics'
-
-" Search workspace symbols
-nnoremap <silent> <space>ls  :exe 'CocList -I --tab -A --input='.expand('<cword>').' symbols'<CR>
-let g:which_key_map.l.s = 'symbols'
+" 'S' key (Search) {{{
+let g:which_key_map.s = {
+      \ 'name' : '+search' ,
+      \ '/' : [':History/'              , 'history'],
+      \ ';' : [':Commands'              , 'commands'],
+      \ 'a' : [':Ag'                    , 'text Ag'],
+      \ 'b' : [':BLines'                , 'current buffer'],
+      \ 'c' : [':Commits'               , 'commits'],
+      \ 'C' : [':BCommits'              , 'buffer commits'],
+      \ 'f' : [':Files'                 , 'files'],
+      \ 'g' : [':GFiles'                , 'git files'],
+      \ 'G' : [':GFiles?'               , 'modified git files'],
+      \ 'h' : [':History'               , 'file history'],
+      \ 'H' : [':History:'              , 'command history'],
+      \ 'l' : [':Lines'                 , 'lines'] ,
+      \ 'm' : [':Marks'                 , 'marks'] ,
+      \ 'M' : [':Maps'                  , 'normal maps'] ,
+      \ 'p' : [':Helptags'              , 'help tags'] ,
+      \ 'P' : [':Tags'                  , 'project tags'],
+      \ 's' : [':CocList snippets'      , 'snippets'],
+      \ 't' : [':Rg'                    , 'text Rg'],
+      \ 'T' : [':BTags'                 , 'buffer tags'],
+      \ 'y' : [':Filetypes'             , 'file types'],
+      \ 'z' : [':FZF'                   , 'FZF'],
+      \ }
 " }}}
-
-" 'E' key (Explorer) {{{
-let g:which_key_map.e = { 'name' : '+explore' }
-
-nmap <silent><space>ef :CocCommand explorer --quit-on-open --sources buffer-,file+<CR>
-
-let g:which_key_map.e.f = 'explore-files'
-" }}}
-"  'D' key (Diagnostic) {{{
-let g:which_key_map.d = [':CocList diagnostics', 'diagnostics']
-"  }}}
 "  'T' key {{{
 let g:which_key_map.t = [':CocCommand terminal.Toggle', 'terminal']
 "  }}}
@@ -333,17 +344,20 @@ command! -nargs=0 Format :call CocAction('format')
 " Add `:OR` command for organize imports of the current buffer.
 command! -nargs=0 OR :call CocAction('runCommand', 'editor.action.organizeImport')
 
-" Remap keys for applying codeAction to the current line.
-xmap <leader>a  <Plug>(coc-codeaction-selected)
-nmap <leader>a  <Plug>(coc-codeaction-selected)
-
-xmap <localleader>a :<C-u>execute 'CocCommand actions.open ' . visualmode()<CR>
-" Apply AutoFix to problem on the current line.
-nmap <leader>qf <Plug>(coc-fix-current)
+" Remap for do codeAction of selected region
+function! s:cocActionsOpenFromSelected(type) abort
+  execute 'CocCommand actions.open ' . a:type
+endfunction
+xmap <silent> <leader>a :<C-u>execute 'CocCommand actions.open ' . visualmode()<CR>
+nmap <silent> <leader>a :<C-u>set operatorfunc=<SID>cocActionsOpenFromSelected<CR>g@
 
 " Use `[d` and `]d` to navigate diagnostics
 nmap <silent> [d <Plug>(coc-diagnostic-prev)
 nmap <silent> ]d <Plug>(coc-diagnostic-next)
+
+" Use `[e` and `]e` to navigate diagnostics
+nmap <silent> [e <Plug>(coc-diagnostic-prev-error)
+nmap <silent> ]e <Plug>(coc-diagnostic-next-error)
 " }}}
 " Pretier {{{
 command! -nargs=0 Prettier :CocCommand prettier.formatFile
@@ -366,6 +380,34 @@ vmap <Tab> %
 au FileType markdown packadd markdown-preview.nvim
 " }}}
 " FZF {{{
-let g:fzf_layout = { 'window': {'width': 0.9, 'height': 0.6}}
+let g:fzf_tags_command = 'ctags -R'
+let g:fzf_layout = {'up':'~70%', 'window': { 'width': 0.9, 'height': 0.6,'yoffset':0.5,'xoffset': 0.5 } }
+
+let $FZF_DEFAULT_OPTS = '--layout=reverse --inline-info'
+let $FZF_DEFAULT_COMMAND="rg --files --hidden --glob '!.git/**'"
+
+let g:fzf_colors = {
+\ 'fg': ['fg', 'Normal'],
+\ 'bg': ['bg', 'Normal'],
+\ 'hl': ['fg', 'Search'],
+\ 'fg+': ['fg', 'Normal'],
+\ 'bg+': ['bg', 'Normal'],
+\ 'hl+': ['fg', 'DraculaOrange'],
+\ 'info': ['fg', 'DraculaPurple'],
+\ 'border': ['fg', 'Ignore'],
+\ 'prompt': ['fg', 'DraculaGreen'],
+\ 'pointer': ['fg', 'Exception'],
+\ 'marker': ['fg', 'Keyword'],
+\ 'spinner': ['fg', 'Label'],
+\ 'header': ['fg', 'Comment'] }
 " }}}
-let g:svelte_preprocessors = ['typescript']
+" Functions {{{
+function! Comment()
+  if (mode() == "n" )
+    execute "Commentary"
+  else
+    execute "'<,'>Commentary"
+  endif
+ endfunction
+vnoremap <silent> <space>/ :call Comment()
+" }}}
