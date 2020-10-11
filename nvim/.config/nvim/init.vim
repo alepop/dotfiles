@@ -51,7 +51,8 @@ endif
 "Plug 'pechorin/any-jump.vim'
 " polyglot
 Plug 'sheerun/vim-polyglot'
-Plug 'evanleck/vim-svelte'
+" smooth scrolling
+Plug 'psliwka/vim-smoothie'
 " Commentary
 Plug 'tpope/vim-commentary'
 " Surrond
@@ -114,6 +115,15 @@ hi! Normal ctermbg=NONE guibg=NONE
 hi! NonText ctermbg=NONE guibg=NONE guifg=NONE ctermfg=NONE
 " Autocmd {{{
 autocmd BufWritePre *.js,*.jsx,*.ts,*.tsx,*.css,*.html :Format
+
+" stop annoying auto commenting on new lines
+au BufEnter * set fo-=c fo-=r fo-=o
+
+" open help in vertical split
+au FileType help wincmd L
+
+" remove trailing whitespaces before saving
+au BufWritePre * :%s/\s\+$//e
 
 " Hide status line
 autocmd! FileType which_key
@@ -342,7 +352,8 @@ function! s:cocActionsOpenFromSelected(type) abort
   execute 'CocCommand actions.open ' . a:type
 endfunction
 xmap <silent> <leader>a :<C-u>execute 'CocCommand actions.open ' . visualmode()<CR>
-nmap <silent> <leader>a :<C-u>set operatorfunc=<SID>cocActionsOpenFromSelected<CR>g@
+nmap <silent> <leader>a :CocCommand actions.open<CR>
+"nmap <silent> <leader>a :<C-u>set operatorfunc=<SID>cocActionsOpenFromSelected<CR>g@
 
 " Use `[d` and `]d` to navigate diagnostics
 nmap <silent> [d <Plug>(coc-diagnostic-prev)
