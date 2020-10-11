@@ -1,75 +1,70 @@
 " Plugins {{{
-if exists('*minpac#init')
-    call minpac#init()
-    " minpac must have {'type': 'opt'} so that it can be loaded with `packadd`.
-    call minpac#add('k-takata/minpac', {'type': 'opt'})
-    " status line
-    call minpac#add('itchyny/lightline.vim')
-    " which-key
-    call minpac#add('liuchengxu/vim-which-key')
-    " editorconfig
-    call minpac#add('editorconfig/editorconfig-vim')
-    " fzf
-    call minpac#add('junegunn/fzf', {'do': '!./install --bin'})
-    call minpac#add('junegunn/fzf.vim')
-    " COC
-    call minpac#add('neoclide/coc.nvim', {'branch': 'release'})
-    " COC plugins {{{
-    let g:coc_global_extensions = [
-                \"coc-css",
-                \"coc-html",
-                \"coc-explorer",
-                \"coc-git",
-                \"coc-gitignore",
-                \"coc-highlight",
-                \"coc-json",
-                \"coc-lists",
-                \"coc-marketplace",
-                \"coc-pairs",
-                \"coc-prettier",
-                \"coc-project",
-                \"coc-snippets",
-                \"coc-tsserver",
-                \"coc-vimlsp",
-                \"coc-actions",
-                \]
-    if executable('python')
-        let g:coc_global_extensions += ['coc-python']
-    endif
-    if executable('go')
-        let g:coc_global_extensions += ['coc-gocode']
-    endif
-    if executable('rust')
-        let g:coc_global_extensions += ['coc-rls']
-    endif
-    " }}}
-    " AnyJump
-    " call minpac#add('pechorin/any-jump.vim')
-    " polyglot
-    call minpac#add('sheerun/vim-polyglot')
-    call minpac#add('evanleck/vim-svelte')
-    " Commentary
-    call minpac#add('tpope/vim-commentary')
-    " Surrond
-    call minpac#add('tpope/vim-surround')
-    " Git
-    call minpac#add('tpope/vim-fugitive')
-    " ColorSchemes
-    call minpac#add('morhetz/gruvbox')
-    call minpac#add('dracula/vim', { 'name': 'dracula'})
-    " Markdown preview
-    call minpac#add('iamcco/markdown-preview.nvim', {'do': '!yarn install', 'type': 'opt'})
+" auto install vim-plug {{{
+if empty(glob('~/.config/nvim/autoload/plug.vim'))
+    silent !curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs
+                \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+    autocmd VimEnter * PlugInstall | source $MYVIMRC
 endif
-
-" Minpac config {{{
-" Define user commands for updating/cleaning the plugins.
-" Each of them calls PackInit() to load minpac and register
-" the information of plugins, then performs the task.
-command! PackUpdate packadd minpac | source $MYVIMRC | call minpac#update('', {'do': 'call minpac#status()'})
-command! PackClean  packadd minpac | source $MYVIMRC | call minpac#clean()
-command! PackStatus packadd minpac | source $MYVIMRC | call minpac#status()
 " }}}
+call plug#begin(expand('~/.config/nvim/plugged'))
+" status line
+Plug 'itchyny/lightline.vim'
+" which-key
+Plug 'liuchengxu/vim-which-key'
+" editorconfig
+Plug 'editorconfig/editorconfig-vim'
+" fzf
+Plug 'junegunn/fzf', {'do': {-> fzf#install() }}
+Plug 'junegunn/fzf.vim'
+" COC
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+" COC plugins {{{
+let g:coc_global_extensions = [
+            \"coc-css",
+            \"coc-html",
+            \"coc-explorer",
+            \"coc-git",
+            \"coc-gitignore",
+            \"coc-highlight",
+            \"coc-json",
+            \"coc-lists",
+            \"coc-marketplace",
+            \"coc-pairs",
+            \"coc-prettier",
+            \"coc-project",
+            \"coc-snippets",
+            \"coc-tsserver",
+            \"coc-vimlsp",
+            \"coc-actions",
+            \]
+if executable('python')
+    let g:coc_global_extensions += ['coc-python']
+endif
+if executable('go')
+    let g:coc_global_extensions += ['coc-gocode']
+endif
+if executable('rust')
+    let g:coc_global_extensions += ['coc-rls']
+endif
 " }}}
+" AnyJump
+"Plug 'pechorin/any-jump.vim'
+" polyglot
+Plug 'sheerun/vim-polyglot'
+Plug 'evanleck/vim-svelte'
+" Commentary
+Plug 'tpope/vim-commentary'
+" Surrond
+Plug 'tpope/vim-surround'
+" Git
+Plug 'tpope/vim-fugitive'
+" ColorSchemes
+Plug 'morhetz/gruvbox'
+Plug 'dracula/vim', { 'name': 'dracula'}
+" Markdown preview
+Plug 'iamcco/markdown-preview.nvim', {'do': '!yarn install'}
+call plug#end()
+"}}}
 " Base Settings {{{
 syntax enable                           " Enables syntax highlighing
 set hidden                              " Required to keep multiple buffers open multiple buffers
@@ -113,7 +108,6 @@ set background=dark
 let g:gruvbox_contrast_dark='soft'
 let g:gruvbox_contrast_light='soft'
 let g:gruvbox_invert_selection='0'
-packadd! dracula
 colorscheme dracula
 
 hi! Normal ctermbg=NONE guibg=NONE
@@ -191,12 +185,14 @@ autocmd User CocStatusChange,CocDiagnosticChange call lightline#update()
 " }}}
 " Which Key {{{
 " Plugin settings {{{
-packadd vim-which-key
 set timeoutlen=200
+
 let g:which_key_use_floating_win = 1
+
 nnoremap <silent> <leader>      :<c-u>WhichKey '<Space>'<CR>
 vnoremap <silent> <leader>      :<c-u>WhichKeyVisual '<Space>'<CR>
 nnoremap <silent> <localleader> :<c-u>WhichKey  ','<CR>
+
 call which_key#register('<Space>', "g:which_key_map")
 call which_key#register(',', "g:which_local_key_map")
 
@@ -213,7 +209,6 @@ let g:which_key_map[';'] = [ ':Commands', 'commands' ]
 let g:which_key_map['e'] = [ ':CocCommand explorer --quit-on-open --sources buffer-,file+', 'explorer']
 let g:which_key_map['a'] = 'actions'
 " }}}
-
 " 'W' key (Windows) {{{
 let g:which_key_map.w = {
             \ 'name' : '+windows' ,
@@ -225,7 +220,6 @@ let g:which_key_map.w = {
             \ }
 
 " }}}
-
 " 'B' key (Buffers) {{{
 let g:which_key_map.b = {
             \ 'name': '+buffer',
@@ -237,7 +231,6 @@ let g:which_key_map.b = {
             \ }
 
 " }}}
-
 " 'L' key (LSP) {{{
 let g:which_key_map.l = {
       \ 'name' : '+lsp' ,
@@ -375,9 +368,6 @@ nnoremap <localleader>gm :diffget //3<CR>
 " Use Tab instead of % to switch
 nmap <Tab> %
 vmap <Tab> %
-" }}}
-" Markdown {{{
-au FileType markdown packadd markdown-preview.nvim
 " }}}
 " FZF {{{
 let g:fzf_tags_command = 'ctags -R'
